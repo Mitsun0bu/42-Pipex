@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:25:47 by llethuil          #+#    #+#             */
-/*   Updated: 2022/01/10 19:47:35 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/01/11 11:00:42 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int	ft_calloc_strs(char const *s, char c, char **tab)
 	int	j_tab;
 
 	i = 0;
-	i_tab = -1;
-	while (s[i] && ++i_tab < ft_count_words(s, c))
+	i_tab = 0;
+	while (s[i] && i_tab < ft_count_words(s, c))
 	{
 		while (s[i] == c)
 			i ++;
@@ -86,9 +86,10 @@ int	ft_calloc_strs(char const *s, char c, char **tab)
 		}
 		if (s[i] != c && s[i + 1] == '\0')
 			j_tab ++;
-		tab[i_tab] = ft_calloc(j_tab + 2, sizeof(char));
+		tab[i_tab] = ft_calloc(j_tab + 1, sizeof(char));
 		if (!tab[i_tab])
 			return (0);
+		i_tab ++;
 		i ++;
 	}
 	return (1);
@@ -111,7 +112,6 @@ void	ft_fill_tab(char const *s, char c, char **tab)
 			tab[i_tab][j_tab++] = s[i++];
 		if (s[i] != c && s[i + 1] == '\0')
 			tab[i_tab][j_tab++] = s[i];
-		tab[i_tab][j_tab++] = '/';
 		tab[i_tab][j_tab] = '\0';
 		i_tab ++;
 		i ++;
