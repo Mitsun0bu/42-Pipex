@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 10:34:16 by llethuil          #+#    #+#             */
-/*   Updated: 2022/01/11 11:00:40 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/01/11 16:49:49 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,37 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (substr);
 }
 
+void	error_handler(char **av, char *err)
+{
+	if (err == ERR_INPUT)
+		ft_putstr_fd("Invalid number of arguments: 5 arguments required\n", 1);
+	else if (err == ERR_INFILE)
+		perror(av[1]);
+	else if (err == ERR_CMD_1)
+	{
+		ft_putstr_fd(av[2], 1);
+		ft_putstr_fd(": command not found\n", 1);
+		return ;
+	}
+	else if (err == ERR_CMD_2)
+	{
+		ft_putstr_fd(av[3], 1);
+		ft_putstr_fd(": command not found\n", 1);
+	}
+	else if (err == ERR_OUTFILE)
+		perror(av[4]);
+	else if (err == ERR_PIPE)
+		perror("");
+	exit (1);
+}
 
+void	free_cmd(t_cmd *cmd)
+{
+	ft_free(cmd->paths_tab);
+	ft_free(cmd->name_1);
+	ft_free(cmd->name_2);
+	if (cmd->path_1)
+		free(cmd->path_1);
+	if (cmd->path_2)
+		free(cmd->path_2);
+}

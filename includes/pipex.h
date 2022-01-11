@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 11:54:29 by llethuil          #+#    #+#             */
-/*   Updated: 2022/01/11 12:17:20 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/01/11 16:37:04 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# define ERR_INFILE "Infile"
-# define ERR_OUTFILE "Outfile"
-# define ERR_INPUT "Invalid number of arguments.\n"
-# define ERR_PIPE "Pipe"
-# define ERR_CMD "Command not found\n"
+# define ERR_INFILE "infile"
+# define ERR_OUTFILE "outfile"
+# define ERR_INPUT "n_args"
+# define ERR_CMD_1 "cmd_1"
+# define ERR_CMD_2 "cmd_2"
+# define ERR_PIPE "pipe"
 
 /* ************************************************************************** */
 /*                                                                            */
@@ -73,14 +74,16 @@ typedef struct s_cmd
 
 /* main.c */
 int		main(int ac, char **av, char **envp);
+
+/* parsing.c */
 int		open_files(char **av, t_cmd *cmd);
 void	get_cmd_names(char **av, t_cmd *cmd);
 void	get_paths_tab(char **envp, t_cmd *cmd);
-void	assign_path(t_cmd *cmd);
+void	assign_path(char **av, t_cmd *cmd);
+
+/* pipex.c */
 void	pipex(char **envp, t_cmd *cmd);
 void	task_process(int i, int *pipe_fd, t_cmd *cmd, char **envp);
-void	error_handler(char **av, char *err);
-void	free_cmd_end(t_cmd *cmd);
 
 /* utils_1.c */
 void	ft_bzero(void *s, size_t n);
@@ -100,5 +103,7 @@ void	ft_fill_tab(char const *s, char c, char **tab);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+void	error_handler(char **av, char *err);
+void	free_cmd(t_cmd *cmd);
 
 #endif

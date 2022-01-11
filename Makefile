@@ -6,17 +6,17 @@
 #    By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/09 11:45:29 by llethuil          #+#    #+#              #
-#    Updated: 2022/01/11 11:00:40 by llethuil         ###   ########lyon.fr    #
+#    Updated: 2022/01/11 15:46:59 by llethuil         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
-
-
 
 NAME = pipex
 
 INCS = 		./includes/pipex.h \
 
 SRCS =		./srcs/main.c			\
+			./srcs/parsing.c		\
+			./srcs/pipex.c			\
 			./srcs/utils_1.c		\
 			./srcs/utils_2.c		\
 			./srcs/utils_3.c		\
