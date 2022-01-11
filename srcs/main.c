@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 11:56:56 by llethuil          #+#    #+#             */
-/*   Updated: 2022/01/11 16:13:37 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/01/11 19:45:59 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ int	main(int ac, char **av, char **envp)
 		exit (1);
 	get_cmd_names(av, &cmd);
 	get_paths_tab(envp, &cmd);
-	assign_path(av, &cmd);
+	cmd.path_1 = assign_path(av, av[2], cmd.name_1[0], &cmd);
+	cmd.path_2 = assign_path(av, av[3], cmd.name_2[0], &cmd);
 	pipex(envp, &cmd);
-	free_cmd(&cmd);
+	free_cmd(av, &cmd);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:45:17 by llethuil          #+#    #+#             */
-/*   Updated: 2022/01/11 16:48:32 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/01/11 19:47:38 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,30 +56,25 @@ void	get_paths_tab(char **envp, t_cmd *cmd)
 	free(paths_line);
 }
 
-void	assign_path(char **av, t_cmd *cmd)
+char	*assign_path(char **av, char *arg, char *cmd_name, t_cmd *cmd)
 {
 	int		i;
+	char	*path;
 
 	i = -1;
 	while (cmd->paths_tab[++i])
 	{
-		cmd->path_1 = ft_strjoin(cmd->paths_tab[i], cmd->name_1[0]);
-		if (access(cmd->path_1, F_OK) == 0)
-			break ;
-		free(cmd->path_1);
-		cmd->path_1 = NULL;
+		if (access(arg, F_OK) == 0)
+			return (arg);
+		path = ft_strjoin(cmd->paths_tab[i], cmd_name);
+		if (access(path, F_OK) == 0)
+			return (path);
+		free(path);
+		path = NULL;
 	}
-	if (access(cmd->path_1, F_OK) == -1)
+	if (access(path, F_OK) == -1 && cmd_name == cmd->name_1[0])
 		error_handler(av, ERR_CMD_1);
-	i = -1;
-	while (cmd->paths_tab[++i])
-	{
-		cmd->path_2 = ft_strjoin(cmd->paths_tab[i], cmd->name_2[0]);
-		if (access(cmd->path_2, F_OK) == 0)
-			break ;
-		free(cmd->path_2);
-		cmd->path_2 = NULL;
-	}
-	if (access(cmd->path_2, F_OK) == -1)
+	if (access(path, F_OK) == -1 && cmd_name == cmd->name_2[0])
 		error_handler(av, ERR_CMD_2);
+	return (NULL);
 }

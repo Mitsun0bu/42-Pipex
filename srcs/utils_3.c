@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 10:34:16 by llethuil          #+#    #+#             */
-/*   Updated: 2022/01/11 16:49:49 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/01/11 18:55:33 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,13 +119,13 @@ void	error_handler(char **av, char *err)
 	exit (1);
 }
 
-void	free_cmd(t_cmd *cmd)
+void	free_cmd(char **av, t_cmd *cmd)
 {
 	ft_free(cmd->paths_tab);
 	ft_free(cmd->name_1);
 	ft_free(cmd->name_2);
-	if (cmd->path_1)
+	if (cmd->path_1 && cmd->path_1 != av[2])
 		free(cmd->path_1);
-	if (cmd->path_2)
+	if (cmd->path_2 && cmd->path_2 != av[3])
 		free(cmd->path_2);
 }

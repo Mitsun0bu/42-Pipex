@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 11:54:29 by llethuil          #+#    #+#             */
-/*   Updated: 2022/01/11 16:37:04 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/01/11 19:47:08 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ int		main(int ac, char **av, char **envp);
 int		open_files(char **av, t_cmd *cmd);
 void	get_cmd_names(char **av, t_cmd *cmd);
 void	get_paths_tab(char **envp, t_cmd *cmd);
-void	assign_path(char **av, t_cmd *cmd);
+char	*assign_path(char **av, char *arg, char *cmd_name, t_cmd *cmd);
 
 /* pipex.c */
 void	pipex(char **envp, t_cmd *cmd);
-void	task_process(int i, int *pipe_fd, t_cmd *cmd, char **envp);
+void	task_process(int x, int *pipe_fd, t_cmd *cmd, char **envp);
 
 /* utils_1.c */
 void	ft_bzero(void *s, size_t n);
@@ -104,6 +104,6 @@ char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 void	error_handler(char **av, char *err);
-void	free_cmd(t_cmd *cmd);
+void	free_cmd(char **av, t_cmd *cmd);
 
 #endif
