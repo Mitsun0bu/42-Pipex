@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 11:54:29 by llethuil          #+#    #+#             */
-/*   Updated: 2022/01/11 19:47:08 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/01/12 12:26:43 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define ERR_CMD_1 "cmd_1"
 # define ERR_CMD_2 "cmd_2"
 # define ERR_PIPE "pipe"
+# define ERR_FORK "fork"
 
 /* ************************************************************************** */
 /*                                                                            */
@@ -82,7 +83,7 @@ void	get_paths_tab(char **envp, t_cmd *cmd);
 char	*assign_path(char **av, char *arg, char *cmd_name, t_cmd *cmd);
 
 /* pipex.c */
-void	pipex(char **envp, t_cmd *cmd);
+int		pipex(char **envp, t_cmd *cmd);
 void	task_process(int x, int *pipe_fd, t_cmd *cmd, char **envp);
 
 /* utils_1.c */

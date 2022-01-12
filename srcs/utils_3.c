@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 10:34:16 by llethuil          #+#    #+#             */
-/*   Updated: 2022/01/11 18:55:33 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/01/12 13:36:57 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,10 @@ void	error_handler(char **av, char *err)
 	if (err == ERR_INPUT)
 		ft_putstr_fd("Invalid number of arguments: 5 arguments required\n", 1);
 	else if (err == ERR_INFILE)
+	{
 		perror(av[1]);
+		return ;
+	}
 	else if (err == ERR_CMD_1)
 	{
 		ft_putstr_fd(av[2], 1);
@@ -111,10 +114,11 @@ void	error_handler(char **av, char *err)
 	{
 		ft_putstr_fd(av[3], 1);
 		ft_putstr_fd(": command not found\n", 1);
+		exit (127);
 	}
 	else if (err == ERR_OUTFILE)
 		perror(av[4]);
-	else if (err == ERR_PIPE)
+	else if (err == ERR_PIPE || err == ERR_FORK)
 		perror("");
 	exit (1);
 }

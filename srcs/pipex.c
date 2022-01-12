@@ -6,13 +6,13 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:44:38 by llethuil          #+#    #+#             */
-/*   Updated: 2022/01/11 19:11:40 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/01/12 13:34:34 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	pipex(char **envp, t_cmd *cmd)
+int	pipex(char **envp, t_cmd *cmd)
 {
 	int		pipe_fd[2];
 	int		status;
@@ -23,18 +23,19 @@ void	pipex(char **envp, t_cmd *cmd)
 		error_handler(NULL, ERR_PIPE);
 	task_1 = fork();
 	if (task_1 < 0)
-		return (perror("Fork: "));
+		error_handler(NULL, ERR_FORK);
 	if (task_1 == 0)
 		task_process(1, pipe_fd, cmd, envp);
 	task_2 = fork();
 	if (task_2 < 0)
-		return (perror("Fork: "));
+		error_handler(NULL, ERR_FORK);
 	if (task_2 == 0)
 		task_process(2, pipe_fd, cmd, envp);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
 	waitpid(task_1, &status, 0);
 	waitpid(task_2, &status, 0);
+	return (WEXITSTATUS(status));
 }
 
 void	task_process(int x, int *pipe_fd, t_cmd *cmd, char **envp)
@@ -47,7 +48,6 @@ void	task_process(int x, int *pipe_fd, t_cmd *cmd, char **envp)
 		close(cmd->fd_1);
 		if (cmd->path_1)
 			execve(cmd->path_1, cmd->name_1, envp);
-		exit(EXIT_FAILURE);
 	}
 	if (x == 2)
 	{
@@ -57,6 +57,6 @@ void	task_process(int x, int *pipe_fd, t_cmd *cmd, char **envp)
 		close(cmd->fd_2);
 		if (cmd->path_2)
 			execve(cmd->path_2, cmd->name_2, envp);
-		exit(EXIT_FAILURE);
 	}
+	exit (1);
 }
