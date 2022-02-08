@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 10:34:16 by llethuil          #+#    #+#             */
-/*   Updated: 2022/01/12 13:36:57 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 17:39:46 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	error_handler(char **av, char *err)
 	else if (err == ERR_INFILE)
 	{
 		perror(av[1]);
-		return ;
+		exit(0);
 	}
 	else if (err == ERR_CMD_1)
 	{
